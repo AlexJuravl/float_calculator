@@ -22,10 +22,11 @@ int Factorial(int n)
 	}
 }
 
-int SelectOperation();
+void SelectOperation();
 bool ValidationOperation(char value[]);
 bool ValidationNumber(char value[]);
 double InputNumber();
+void OutputResult();
 
 float AlgebraicCalculation(double one, double two, int operation_index);
 
@@ -34,42 +35,20 @@ float CosineCalculation(double x);
 float TanCalculation(double x);
 float CotanCalculation(double x);
 
+double result = 0.0;
+double fNum = 0.0; //first number
+double sNum = 0.0; //second number
+int operation;
+
+
 int main()
 {
-	double result = 0;
-	double fNum; //first number
-	double sNum; //second number
+	SelectOperation();
 
-	int operation = SelectOperation();
-
-	fNum = InputNumber();
-
-	if (operation >= 1 && operation <= 3)
-	{
-		sNum = InputNumber();
-		result = AlgebraicCalculation(fNum, sNum, operation);
-	}
-	else if (operation == 4)
-	{
-		result = SineCalculation(fNum);
-	}
-	else if (operation == 5)
-	{
-		result = CosineCalculation(fNum);
-	}
-	else if (operation == 6)
-	{
-		result = TanCalculation(fNum);
-	}
-	else if (operation == 7)
-	{
-		result = CotanCalculation(fNum);
-	}
-
-	printf("%f", result);
+	OutputResult();
 }
 
-int SelectOperation()
+void SelectOperation()
 {
 	char inp_str[10];
 	int input;
@@ -92,7 +71,33 @@ int SelectOperation()
 		}
 	}
 
-	return input;
+	operation = input;
+
+	fNum = InputNumber();
+
+	if (operation >= 1 && operation <= 3)
+	{
+		sNum = InputNumber();
+		result = AlgebraicCalculation(fNum, sNum, operation);
+	}
+	else
+	{
+		switch (operation)
+		{
+		case 4:
+			result = SineCalculation(fNum);
+			break;
+		case 5:
+			result = CosineCalculation(fNum);
+			break;
+		case 6:
+			result = TanCalculation(fNum);
+			break;
+		case 7:
+			result = CotanCalculation(fNum);
+			break;
+		}
+	}
 }
 
 bool ValidationOperation(char value[])
@@ -154,6 +159,11 @@ bool ValidationNumber(char value[])
 	}
 
 	return true;
+}
+
+void OutputResult()
+{
+	printf("%f", result);
 }
 
 float AlgebraicCalculation(double one, double two, int operation_index)
